@@ -1,6 +1,6 @@
-var mysql2 = require("mysql2");
+const mysql2 = require("mysql2");
 
-var db = mysql2.createConnection({
+const db = mysql2.createConnection({
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT,
   database: process.env.DATABASE_NAME,
