@@ -1,14 +1,8 @@
-const {
-  getAnimes,
-  getAnime,
-  createAnime,
-  editAnime,
-  destroyAnime,
-} = require("../services/anime.service");
+const animeService = require("../services/anime.service");
 
-const get = async (req, res, next) => {
+const getAnimes = async (req, res, next) => {
   try {
-    const animes = await getAnimes();
+    const animes = await animeService.getAnimes();
 
     res.status(200).json({ message: "Successfully get animes.", data: animes });
   } catch (error) {
@@ -16,10 +10,10 @@ const get = async (req, res, next) => {
   }
 };
 
-const getById = async (req, res, next) => {
+const getAnime = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const anime = await getAnime(id);
+    const anime = await animeService.getAnime(id);
 
     res.status(200).json({ message: "Successfully get anime.", data: anime });
   } catch (error) {
@@ -27,10 +21,10 @@ const getById = async (req, res, next) => {
   }
 };
 
-const post = async (req, res, next) => {
+const createAnime = async (req, res, next) => {
   try {
     const data = req.body;
-    const anime = await createAnime(data);
+    const anime = await animeService.createAnime(data);
 
     res.status(200).json({ message: "Sucessfully insert anime.", data: anime });
   } catch (error) {
@@ -38,12 +32,12 @@ const post = async (req, res, next) => {
   }
 };
 
-const put = async (req, res, next) => {
+const updateAnime = async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const anime = await editAnime(id, data);
-
+    const anime = await animeService.updateAnime(id, data);
+    
     res
       .status(200)
       .json({ message: "Successfully update anime.", data: anime });
@@ -52,15 +46,14 @@ const put = async (req, res, next) => {
   }
 };
 
-const del = async (req, res, next) => {
+const deleteAnime = async (req, res, next) => {
   try {
     const id = req.params.id;
-    await destroyAnime(id);
-
+    await animeService.deleteAnime(id);
     res.status(200).json({ message: "Successfully delete anime." });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-module.exports = { get, getById, post, put, del };
+module.exports = { getAnimes, getAnime, createAnime, updateAnime, deleteAnime };

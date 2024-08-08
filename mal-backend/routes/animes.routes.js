@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/anime.controller");
+const animeController = require("../controllers/anime.controller");
 
-router.get("/", controller.get);
-router.get("/:id", controller.getById);
-router.post("/", controller.post);
-router.put("/:id", controller.put);
-router.delete("/:id", controller.del);
+router.get("/", animeController.getAnimes);
+router.get("/:id", animeController.getAnime);
+router.post("/", animeController.createAnime);
+router.put("/:id", animeController.updateAnime);
+router.delete("/:id", animeController.deleteAnime);
 
 module.exports = router;

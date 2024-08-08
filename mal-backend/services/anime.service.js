@@ -1,26 +1,19 @@
-const { isEmptyArray } = require("../lib/util");
-const {
-  findAnimes,
-  findAnime,
-  insertAnime,
-  updateAnime,
-  deleteAnime,
-} = require("../repositories/anime.repository");
+const animeRepository = require("../repositories/anime.repository");
 
 const getAnimes = async () => {
-  const animes = await findAnimes();
+  const animes = await animeRepository.getAnimes();
 
-  if (isEmptyArray(animes)) {
-    throw Error("There is no anime.");
+  if (animes.length === 0) {
+    throw Error("There is no anime");
   }
 
   return animes;
 };
 
 const getAnime = async (id) => {
-  const anime = await findAnime(id);
+  const anime = await animeRepository.getAnime(id);
 
-  if (isEmptyArray(anime)) {
+  if (!anime) {
     throw Error("There is no anime.");
   }
 
@@ -28,7 +21,7 @@ const getAnime = async (id) => {
 };
 
 const createAnime = async (data) => {
-  const affectedRows = await insertAnime(data);
+  const affectedRows = await animeRepository.createAnime(data);
 
   if (affectedRows === 0) {
     throw Error("Failed to create anime.");
@@ -37,10 +30,10 @@ const createAnime = async (data) => {
   return data;
 };
 
-const editAnime = async (id, data) => {
+const updateAnime = async (id, data) => {
   await getAnime(id);
 
-  const affectedRows = await updateAnime(id, data);
+  const affectedRows = await animeRepository.updateAnime(id, data);
 
   if (affectedRows === 0) {
     throw Error("Failed to update anime.");
@@ -49,14 +42,14 @@ const editAnime = async (id, data) => {
   return data;
 };
 
-const destroyAnime = async (id) => {
+const deleteAnime = async (id) => {
   await getAnime(id);
 
-  const affectedRows = await deleteAnime(id);
+  const affectedRows = await animeRepository.deleteAnime(id);
 
   if (affectedRows === 0) {
     throw Error("Failed to delete anime.");
   }
 };
 
-module.exports = { getAnimes, getAnime, createAnime, editAnime, destroyAnime };
+module.exports = { getAnimes, getAnime, createAnime, updateAnime, deleteAnime };
