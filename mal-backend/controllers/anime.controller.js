@@ -10,7 +10,7 @@ const getAnimes = async (req, res, next) => {
   }
 };
 
-const getAnime = async (req, res, next) => {
+const getAnimeById = async (req, res, next) => {
   try {
     const id = req.params.id;
     const anime = await animeService.getAnime(id);
@@ -37,7 +37,7 @@ const updateAnime = async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
     const anime = await animeService.updateAnime(id, data);
-    
+
     res
       .status(200)
       .json({ message: "Successfully update anime.", data: anime });
@@ -56,4 +56,10 @@ const deleteAnime = async (req, res, next) => {
   }
 };
 
-module.exports = { getAnimes, getAnime, createAnime, updateAnime, deleteAnime };
+module.exports = {
+  getAnimes,
+  getAnimeById,
+  createAnime,
+  updateAnime,
+  deleteAnime,
+};

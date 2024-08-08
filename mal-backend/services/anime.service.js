@@ -10,7 +10,7 @@ const getAnimes = async () => {
   return animes;
 };
 
-const getAnime = async (id) => {
+const getAnimeById = async (id) => {
   const anime = await animeRepository.getAnime(id);
 
   if (!anime) {
@@ -52,4 +52,10 @@ const deleteAnime = async (id) => {
   }
 };
 
-module.exports = { getAnimes, getAnime, createAnime, updateAnime, deleteAnime };
+module.exports = {
+  getAnimes,
+  getAnimeById,
+  createAnime,
+  updateAnime,
+  deleteAnime,
+};

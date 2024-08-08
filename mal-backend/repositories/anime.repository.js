@@ -10,7 +10,7 @@ const getAnimes = async () => {
   }
 };
 
-const getAnime = async (id) => {
+const getAnimeById = async (id) => {
   try {
     const [results] = await db
       .promise()
@@ -37,6 +37,7 @@ const createAnime = async (data) => {
           data.image_url,
         ]
       );
+
     return result.affectedRows;
   } catch (error) {
     throw Error(`Error: ${error.message}`);
@@ -80,7 +81,7 @@ const deleteAnime = async (id) => {
 
 module.exports = {
   getAnimes,
-  getAnime,
+  getAnimeById,
   createAnime,
   updateAnime,
   deleteAnime,
