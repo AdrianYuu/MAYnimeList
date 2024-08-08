@@ -8,7 +8,7 @@ const getUserByEmail = async (email) => {
 
     return results[0];
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 

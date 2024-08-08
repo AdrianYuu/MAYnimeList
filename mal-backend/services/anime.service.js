@@ -4,17 +4,17 @@ const getAnimes = async () => {
   const animes = await animeRepository.getAnimes();
 
   if (animes.length === 0) {
-    throw Error("There is no anime");
+    throw new Error("There is no animes.");
   }
 
   return animes;
 };
 
 const getAnimeById = async (id) => {
-  const anime = await animeRepository.getAnime(id);
+  const anime = await animeRepository.getAnimeById(id);
 
   if (!anime) {
-    throw Error("There is no anime.");
+    throw new Error("There is no anime.");
   }
 
   return anime;
@@ -24,31 +24,31 @@ const createAnime = async (data) => {
   const affectedRows = await animeRepository.createAnime(data);
 
   if (affectedRows === 0) {
-    throw Error("Failed to create anime.");
+    throw new Error("Failed to create anime.");
   }
 
   return data;
 };
 
 const updateAnime = async (id, data) => {
-  await getAnime(id);
+  await getAnimeById(id);
 
   const affectedRows = await animeRepository.updateAnime(id, data);
 
   if (affectedRows === 0) {
-    throw Error("Failed to update anime.");
+    throw new Error("Failed to update anime.");
   }
 
   return data;
 };
 
 const deleteAnime = async (id) => {
-  await getAnime(id);
+  await getAnimeById(id);
 
   const affectedRows = await animeRepository.deleteAnime(id);
 
   if (affectedRows === 0) {
-    throw Error("Failed to delete anime.");
+    throw new Error("Failed to delete anime.");
   }
 };
 

@@ -8,6 +8,7 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index.routes");
 const usersRouter = require("./routes/users.routes");
 const animesRouter = require("./routes/animes.routes");
+const reviewsRouter = require("./routes/review.routes");
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/animes", animesRouter);
+app.use("/reviews", reviewsRouter);
 
 module.exports = app;

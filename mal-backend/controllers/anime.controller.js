@@ -50,6 +50,7 @@ const deleteAnime = async (req, res, next) => {
   try {
     const id = req.params.id;
     await animeService.deleteAnime(id);
+
     res.status(200).json({ message: "Successfully delete anime." });
   } catch (error) {
     res.status(400).json({ message: error.message });

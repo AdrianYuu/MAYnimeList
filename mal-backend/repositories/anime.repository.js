@@ -6,7 +6,7 @@ const getAnimes = async () => {
 
     return results;
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 
@@ -18,7 +18,7 @@ const getAnimeById = async (id) => {
 
     return results[0];
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 
@@ -40,7 +40,7 @@ const createAnime = async (data) => {
 
     return result.affectedRows;
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 
@@ -63,7 +63,7 @@ const updateAnime = async (id, data) => {
 
     return result.affectedRows;
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 
@@ -75,7 +75,7 @@ const deleteAnime = async (id) => {
 
     return result.affectedRows;
   } catch (error) {
-    throw Error(`Error: ${error.message}`);
+    throw new Error(error.message);
   }
 };
 
