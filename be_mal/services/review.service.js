@@ -17,6 +17,17 @@ const getReviewsByAnimeId = async (animeId) => {
   return reviews;
 };
 
+const createReview = async (data) => {
+  const affectedRows = await reviewRepository.createReview(data);
+
+  if (affectedRows === 0) {
+    throw new Error("Failed to create review.");
+  }
+
+  return data;
+};
+
 module.exports = {
   getReviewsByAnimeId,
+  createReview,
 };
