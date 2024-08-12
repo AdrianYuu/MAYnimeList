@@ -16,11 +16,17 @@ const getReviewsByAnimeId = async (req, res, next) => {
 const createReview = async (req, res, next) => {
   try {
     const data = req.body;
+
+    if (data.review.trim() == "") {
+      res.status(400).json({ message: "Review can't be empty." });
+      return;
+    }
+
     const review = await reviewService.createReview(data);
 
     res
       .status(200)
-      .json({ message: "Successfully insert review", data: review });
+      .json({ message: "Successfully insert review.", data: review });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

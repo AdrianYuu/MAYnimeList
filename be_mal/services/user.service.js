@@ -11,7 +11,7 @@ const login = async (data) => {
     throw Error("The password is wrong.");
   }
 
-  return { username: user.username, email: user.email };
+  return { id: user.id, username: user.username, email: user.email };
 };
 
 module.exports = {

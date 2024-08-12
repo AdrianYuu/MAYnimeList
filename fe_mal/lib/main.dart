@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 void main() async {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(ThemeData.light()),
+      create: (_) => ThemeNotifier(ThemeData.dark()),
       child: MyApp(),
     ),
   );

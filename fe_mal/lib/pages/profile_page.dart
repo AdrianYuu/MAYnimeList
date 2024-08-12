@@ -1,7 +1,11 @@
+import "package:fe_mal/helpers/navigation_helper.dart";
+import "package:fe_mal/helpers/session_helper.dart";
+import "package:fe_mal/pages/anime_page.dart";
+import "package:fe_mal/pages/home_page.dart";
+import "package:fe_mal/pages/login_page.dart";
 import "package:fe_mal/theme/theme_notifier.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "package:hexcolor/hexcolor.dart";
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,6 +15,11 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   int _selectedIndex = 2;
 
+  void _logout() {
+    SessionHelper.currentUser = null;
+    NavigationHelper.navigateToPage(context, LoginPage());
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -18,13 +27,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/home');
+        NavigationHelper.navigateToPage(context, HomePage());
         break;
       case 1:
-        Navigator.pushNamed(context, '/anime');
+        NavigationHelper.navigateToPage(context, AnimePage());
         break;
       case 2:
-        Navigator.pushNamed(context, '/profile');
         break;
     }
   }
@@ -37,11 +45,11 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'MyAYNimeList',
+              'Welcome, ${SessionHelper.currentUser!.username!}',
               style: TextStyle(
                   fontSize: 20, // Text size
                   fontWeight: FontWeight.w900, // Text weight
-                  color: HexColor("#3054a4")),
+                  color: Colors.blue),
             ),
           ],
         ),
@@ -76,7 +84,29 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Profile Page")],
+          children: [
+            Center(
+              child: SizedBox(
+                width: 140,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _logout();
+                  },
+                  child: Text("Logout",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      backgroundColor: Colors.red),
+                ),
+              ),
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: HexColor("#3054a4"),
+        selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
       ),
     );

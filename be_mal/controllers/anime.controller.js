@@ -26,7 +26,7 @@ const createAnime = async (req, res, next) => {
     const data = req.body;
 
     if (req.file) {
-      data.image_url = req.file.path.replace("public/", "");
+      data.image_url = req.file.path.replace("public/", "/");
     }
 
     const anime = await animeService.createAnime(data);

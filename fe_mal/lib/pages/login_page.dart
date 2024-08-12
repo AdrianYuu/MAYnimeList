@@ -1,7 +1,10 @@
+import "package:fe_mal/helpers/navigation_helper.dart";
+import "package:fe_mal/helpers/session_helper.dart";
 import "package:fe_mal/helpers/snackbar_helper.dart";
+import "package:fe_mal/models/user.dart";
+import "package:fe_mal/pages/home_page.dart";
 import "package:fe_mal/services/api_service.dart";
 import "package:flutter/material.dart";
-import "package:hexcolor/hexcolor.dart";
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,10 +18,10 @@ class _LoginPageState extends State<LoginPage> {
   void _login() async {
     final email = _emailController.text;
     final password = _passwordController.text;
-    final body = {"email": email, "password": password};
+    final body = User(email: email, password: password);
 
     try {
-      final response = await ApiService.post("/users/login", body);
+      final response = await ApiService.post("/users/login", body.toJson());
       final responseBody = response["body"];
       final responseStatusCode = response["statusCode"];
 
@@ -29,8 +32,10 @@ class _LoginPageState extends State<LoginPage> {
 
       SnackbarHelper.showSuccessSnackbar(context, responseBody["message"]);
 
+      SessionHelper.currentUser = User.fromJson(responseBody["data"]);
+
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacementNamed(context, '/home');
+      NavigationHelper.navigateToPage(context, HomePage());
     } catch (e) {
       throw Exception("Error: $e");
     }
@@ -78,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    backgroundColor: HexColor("#3054a4")),
+                    backgroundColor: Colors.blue),
               ),
             )
           ],

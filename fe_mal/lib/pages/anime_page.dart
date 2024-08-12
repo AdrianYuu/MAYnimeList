@@ -1,7 +1,13 @@
+import "package:fe_mal/helpers/navigation_helper.dart";
+import "package:fe_mal/helpers/session_helper.dart";
+import "package:fe_mal/models/anime.dart";
+import "package:fe_mal/pages/anime_detail_page.dart";
+import "package:fe_mal/pages/home_page.dart";
+import "package:fe_mal/pages/profile_page.dart";
+import "package:fe_mal/services/api_service.dart";
 import "package:fe_mal/theme/theme_notifier.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "package:hexcolor/hexcolor.dart";
 
 class AnimePage extends StatefulWidget {
   @override
@@ -10,6 +16,33 @@ class AnimePage extends StatefulWidget {
 
 class _AnimePageState extends State<AnimePage> {
   int _selectedIndex = 1;
+  List<Anime> _animes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchAnimes();
+  }
+
+  void _fetchAnimes() async {
+    try {
+      final response = await ApiService.get("/animes");
+      final responseBody = response["body"];
+      final responseStatusCode = response["statusCode"];
+
+      if (responseStatusCode == 400) {
+        return;
+      }
+
+      setState(() {
+        _animes = (responseBody["data"] as List)
+            .map((animeJson) => Anime.fromJson(animeJson))
+            .toList();
+      });
+    } catch (e) {
+      throw Exception("Error: $e");
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -18,15 +51,18 @@ class _AnimePageState extends State<AnimePage> {
 
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/home');
+        NavigationHelper.navigateToPage(context, HomePage());
         break;
       case 1:
-        Navigator.pushNamed(context, '/search');
         break;
       case 2:
-        Navigator.pushNamed(context, '/profile');
+        NavigationHelper.navigateToPage(context, ProfilePage());
         break;
     }
+  }
+
+  void _onCardTapped(Anime anime) {
+    NavigationHelper.navigateToPage(context, AnimeDetailPage(anime: anime));
   }
 
   @override
@@ -37,11 +73,11 @@ class _AnimePageState extends State<AnimePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'MyAYNimeList',
+              'Welcome, ${SessionHelper.currentUser!.username!}',
               style: TextStyle(
                   fontSize: 20, // Text size
                   fontWeight: FontWeight.w900, // Text weight
-                  color: HexColor("#3054a4")),
+                  color: Colors.blue),
             ),
           ],
         ),
@@ -74,9 +110,73 @@ class _AnimePageState extends State<AnimePage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Anime Page")],
+        child: ListView.builder(
+          itemCount: _animes.length,
+          itemBuilder: (context, index) {
+            final anime = _animes[index];
+            return GestureDetector(
+              onTap: () => {_onCardTapped(anime)},
+              child: Card(
+                elevation: 4.0,
+                margin: EdgeInsets.only(bottom: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      child: ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(4)),
+                        child: Image.network(
+                          (ApiService.baseUrl + anime.imageUrl!),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            (anime.name! + " - " + anime.genre!),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            (anime.description!),
+                            maxLines: 5, // Limit to 2 lines
+                            overflow: TextOverflow.ellipsis,
+                            textAlign:
+                                TextAlign.justify, // Add ellipsis for overflow
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            '${anime.totalEpisode!} episodes',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          SizedBox(height: 8.0),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 20,
+                              ),
+                              Text('${anime.rating?.toStringAsFixed(1)}')
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +196,7 @@ class _AnimePageState extends State<AnimePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: HexColor("#3054a4"),
+        selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
       ),
     );
