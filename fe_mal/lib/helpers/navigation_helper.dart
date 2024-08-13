@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class NavigationHelper {
   static void navigateToPage(BuildContext context, Widget page) {

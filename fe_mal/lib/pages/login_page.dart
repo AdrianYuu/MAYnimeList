@@ -32,8 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
       SnackbarHelper.showSuccessSnackbar(context, responseBody["message"]);
 
-      SessionHelper.currentUser = User.fromJson(responseBody["data"]);
-
+      SessionHelper.setCurrentUser(User.fromJson(responseBody["data"]));
       await Future.delayed(Duration(seconds: 2));
       NavigationHelper.navigateToPage(context, HomePage());
     } catch (e) {
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("../../assets/images/mal_logo.jpg", height: 150),
-            SizedBox(height: 48),
+            const SizedBox(height: 48),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
@@ -58,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               controller: _passwordController,
               obscureText: true,
@@ -67,15 +66,15 @@ class _LoginPageState extends State<LoginPage> {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 48),
+            const SizedBox(height: 48),
             SizedBox(
-              width: 140,
+              width: 120,
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
                   _login();
                 },
-                child: Text("Login",
+                child: const Text("Login",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 style: ElevatedButton.styleFrom(

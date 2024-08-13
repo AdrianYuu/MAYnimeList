@@ -1,5 +1,6 @@
 import "package:fe_mal/helpers/navigation_helper.dart";
 import "package:fe_mal/helpers/session_helper.dart";
+import "package:fe_mal/helpers/snackbar_helper.dart";
 import "package:fe_mal/models/anime.dart";
 import "package:fe_mal/pages/anime_detail_page.dart";
 import "package:fe_mal/pages/home_page.dart";
@@ -24,6 +25,21 @@ class _AnimePageState extends State<AnimePage> {
     _fetchAnimes();
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        NavigationHelper.navigateToPage(context, HomePage());
+        break;
+      case 2:
+        NavigationHelper.navigateToPage(context, ProfilePage());
+        break;
+    }
+  }
+
   void _fetchAnimes() async {
     try {
       final response = await ApiService.get("/animes");
@@ -31,6 +47,7 @@ class _AnimePageState extends State<AnimePage> {
       final responseStatusCode = response["statusCode"];
 
       if (responseStatusCode == 400) {
+        SnackbarHelper.showErrorSnackbar(context, responseBody["message"]);
         return;
       }
 
@@ -41,23 +58,6 @@ class _AnimePageState extends State<AnimePage> {
       });
     } catch (e) {
       throw Exception("Error: $e");
-    }
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        NavigationHelper.navigateToPage(context, HomePage());
-        break;
-      case 1:
-        break;
-      case 2:
-        NavigationHelper.navigateToPage(context, ProfilePage());
-        break;
     }
   }
 
@@ -72,13 +72,11 @@ class _AnimePageState extends State<AnimePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              'Welcome, ${SessionHelper.currentUser!.username!}',
-              style: TextStyle(
-                  fontSize: 20, // Text size
-                  fontWeight: FontWeight.w900, // Text weight
-                  color: Colors.blue),
-            ),
+            Text("Welcome, ${SessionHelper.currentUser!.username!}",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -95,13 +93,13 @@ class _AnimePageState extends State<AnimePage> {
             },
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: "Light Theme",
-                  child: Text("Light Theme"),
+                  child: const Text("Light Theme"),
                 ),
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: "Dark Theme",
-                  child: Text("Dark Theme"),
+                  child: const Text("Dark Theme"),
                 ),
               ];
             },
@@ -117,14 +115,10 @@ class _AnimePageState extends State<AnimePage> {
             return GestureDetector(
               onTap: () => {_onCardTapped(anime)},
               child: Card(
-                elevation: 4.0,
                 margin: EdgeInsets.only(bottom: 16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: double.infinity,
-                      height: 200,
                       child: ClipRRect(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(4)),
@@ -142,31 +136,30 @@ class _AnimePageState extends State<AnimePage> {
                           Text(
                             (anime.name! + " - " + anime.genre!),
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                                fontWeight: FontWeight.bold, fontSize: 24),
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Text(
                             (anime.description!),
-                            maxLines: 5, // Limit to 2 lines
+                            maxLines: 6,
                             overflow: TextOverflow.ellipsis,
-                            textAlign:
-                                TextAlign.justify, // Add ellipsis for overflow
+                            textAlign: TextAlign.justify,
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Text(
-                            '${anime.totalEpisode!} episodes',
+                            "${anime.totalEpisode!} episodes",
                             style: TextStyle(color: Colors.blue),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 color: Colors.yellow,
                                 size: 20,
                               ),
-                              Text('${anime.rating?.toStringAsFixed(1)}')
+                              Text("${anime.rating?.toStringAsFixed(1)}")
                             ],
                           ),
                         ],
@@ -181,17 +174,17 @@ class _AnimePageState extends State<AnimePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: "Home",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'Anime',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.movie),
+            label: "Anime",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: "Profile",
           ),
         ],
         currentIndex: _selectedIndex,

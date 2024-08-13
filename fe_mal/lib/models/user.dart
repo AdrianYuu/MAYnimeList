@@ -8,24 +8,24 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'username': username,
-      'email': email,
-      'password': password,
+      "id": id,
+      "username": username,
+      "email": email,
+      "password": password,
     };
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] as int?,
-      username: json['username'] as String?,
-      email: json['email'] as String?,
-      password: json['password'] as String?,
+      id: json["id"] as int?,
+      username: json["username"] as String?,
+      email: json["email"] as String?,
+      password: json["password"] as String?,
     );
   }
 
   @override
   String toString() {
-    return 'User{id: $id, username: $username, email: $email, password: $password}';
+    return "User{id: $id, username: $username, email: $email, password: $password}";
   }
 }

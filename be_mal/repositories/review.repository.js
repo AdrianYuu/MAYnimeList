@@ -12,6 +12,18 @@ const getReviewsByAnimeId = async (animeId) => {
   }
 };
 
+const getReviewById = async (id) => {
+  try {
+    const [results] = await db
+      .promise()
+      .query("SELECT * FROM reviews WHERE id = ?", [id]);
+
+    return results[0];
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const createReview = async (data) => {
   try {
     const [result] = await db
@@ -27,7 +39,34 @@ const createReview = async (data) => {
   }
 };
 
+const updateReview = async (id, data) => {
+  try {
+    const [result] = await db
+      .promise()
+      .query("UPDATE reviews SET review = ? WHERE id = ?", [data.review, id]);
+
+    return result.affectedRows;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const deleteReview = async (id) => {
+  try {
+    const [result] = await db
+      .promise()
+      .query("DELETE FROM reviews WHERE id = ?", [id]);
+
+    return result.affectedRows;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   getReviewsByAnimeId,
+  getReviewById,
   createReview,
+  updateReview,
+  deleteReview,
 };

@@ -1,6 +1,7 @@
 import "package:carousel_slider/carousel_slider.dart";
 import "package:fe_mal/helpers/navigation_helper.dart";
 import "package:fe_mal/helpers/session_helper.dart";
+import "package:fe_mal/helpers/snackbar_helper.dart";
 import "package:fe_mal/models/anime.dart";
 import "package:fe_mal/pages/anime_page.dart";
 import "package:fe_mal/pages/profile_page.dart";
@@ -22,7 +23,21 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _fetchAnimes();
-    print(SessionHelper.currentUser);
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 1:
+        NavigationHelper.navigateToPage(context, AnimePage());
+        break;
+      case 2:
+        NavigationHelper.navigateToPage(context, ProfilePage());
+        break;
+    }
   }
 
   void _fetchAnimes() async {
@@ -32,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       final responseStatusCode = response["statusCode"];
 
       if (responseStatusCode == 400) {
+        SnackbarHelper.showErrorSnackbar(context, responseBody["message"]);
         return;
       }
 
@@ -45,23 +61,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        break;
-      case 1:
-        NavigationHelper.navigateToPage(context, AnimePage());
-        break;
-      case 2:
-        NavigationHelper.navigateToPage(context, ProfilePage());
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,11 +69,8 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Welcome, ${SessionHelper.currentUser!.username!}',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.blue),
+              "Welcome, ${SessionHelper.currentUser!.username!}",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -92,13 +88,13 @@ class _HomePageState extends State<HomePage> {
             },
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: "Light Theme",
-                  child: Text("Light Theme"),
+                  child: const Text("Light Theme"),
                 ),
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: "Dark Theme",
-                  child: Text("Dark Theme"),
+                  child: const Text("Dark Theme"),
                 ),
               ];
             },
@@ -106,62 +102,62 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(height: 24),
-            Text(
-              "Recommended Animes",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.blue),
-            ),
-            SizedBox(height: 24),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 200,
-                autoPlay: true,
-                enlargeCenterPage: true,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
-              ),
-              items: _animes.map((anime) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                      ),
-                      child: Image.network(
-                        (ApiService.baseUrl + anime.imageUrl!),
-                        fit: BoxFit.cover,
-                      ),
+          padding: EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset("../../assets/images/mal_banner.png", height: 200),
+                const SizedBox(height: 12),
+                const Text(
+                  "MyAYnimeList is a vibrant community where anime enthusiasts from all around the world come together to share their passion for anime.",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.5,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+                const SizedBox(height: 36),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 180,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
+                  ),
+                  items: _animes.map((anime) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Image.network(
+                            (ApiService.baseUrl + anime.imageUrl!),
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
                     );
-                  },
-                );
-              }).toList(),
+                  }).toList(),
+                ),
+              ],
             ),
-            SizedBox(height: 36),
-            Image.asset("../../assets/images/mal_banner.png", height: 200),
-          ],
-        ),
-      ),
+          )),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: "Home",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'Anime',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.movie),
+            label: "Anime",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          const BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: "Profile",
           ),
         ],
         currentIndex: _selectedIndex,
