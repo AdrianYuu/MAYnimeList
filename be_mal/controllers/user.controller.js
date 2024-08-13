@@ -10,6 +10,9 @@ const login = async (req, res, next) => {
     } else if (!data.email.trim().endsWith(".com")) {
       res.status(400).json({ message: "Email must ends with '.com'." });
       return;
+    } else if (!data.email.includes("@")) {
+      res.status(400).json({ message: "Email must contains '@'." });
+      return;
     }
 
     const user = await userService.login(data);
