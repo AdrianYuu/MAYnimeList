@@ -1,0 +1,69 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Review",
+  "collectionId": "d8344075-d01d-4c22-9d99-fceac41cbec5",
+  "dateExported": "2024-08-13T04:28:27.705Z",
+  "version": "1.2",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "d086c629-3180-474d-8d73-a1252c431e7c",
+      "colId": "d8344075-d01d-4c22-9d99-fceac41cbec5",
+      "containerId": "",
+      "name": "Get All Reviews based on AnimeId",
+      "url": "{{BASE_API_URL}}/reviews/15",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2024-08-08T06:21:04.493Z",
+      "modified": "2024-08-08T07:26:02.319Z",
+      "headers": []
+    },
+    {
+      "_id": "d4cd272c-36c2-411a-933f-6c81d18aad39",
+      "colId": "d8344075-d01d-4c22-9d99-fceac41cbec5",
+      "containerId": "",
+      "name": "Create Review",
+      "url": "{{BASE_API_URL}}/reviews",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2024-08-10T00:45:24.833Z",
+      "modified": "2024-08-12T11:43:28.714Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"user_id\": 1,\n  \"anime_id\": 13,\n  \"review\": \"gacor123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "7e5b42d0-fa7b-486e-984d-9e5a3795702d",
+      "colId": "d8344075-d01d-4c22-9d99-fceac41cbec5",
+      "containerId": "",
+      "name": "Update Review",
+      "url": "{{BASE_API_URL}}/reviews/123",
+      "method": "PUT",
+      "sortNum": 40000,
+      "created": "2024-08-13T02:06:12.413Z",
+      "modified": "2024-08-13T02:09:07.746Z",
+      "headers": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"review\": \"mantap\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "56fa22e8-a621-4e23-9f00-d6e991f21053",
+      "colId": "d8344075-d01d-4c22-9d99-fceac41cbec5",
+      "containerId": "",
+      "name": "Delete Review",
+      "url": "{{BASE_API_URL}}/reviews/5123",
+      "method": "DELETE",
+      "sortNum": 50000,
+      "created": "2024-08-13T02:08:42.723Z",
+      "modified": "2024-08-13T02:09:11.124Z",
+      "headers": []
+    }
+  ],
+  "ref": "HBrXT6PPNwvyf8zObdgD7Mysb8K-uDLMFToTGl9fI8TDyaMuR9SvgPNq--jTCJsiLDGCgDPVjuH8bpfrC4caqw"
+}

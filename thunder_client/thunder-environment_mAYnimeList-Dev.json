@@ -1,0 +1,14 @@
+{
+  "clientName": "Thunder Client",
+  "environmentName": "mAYnimeList-Dev",
+  "environmentId": "8d22a0ee-2447-46eb-845e-5b4ffba02a1b",
+  "dateExported": "2024-08-13T04:28:35.481Z",
+  "version": "1.2",
+  "variables": [
+    {
+      "name": "BASE_API_URL",
+      "value": "127.0.0.1:3000"
+    }
+  ],
+  "ref": "dxyWWFfiPAU2MgCzAQUn9zKAYtarrT1HkXuVJ2LWoUYDN3RodaEdKIZdIWgSNjw9"
+}

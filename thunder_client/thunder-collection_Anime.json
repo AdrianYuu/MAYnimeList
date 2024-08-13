@@ -1,0 +1,135 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Anime",
+  "collectionId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+  "dateExported": "2024-08-13T04:28:14.968Z",
+  "version": "1.2",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "63677d6e-2f6b-4099-89c8-343dfe5ed30f",
+      "colId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+      "containerId": "",
+      "name": "Get All Animes",
+      "url": "{{BASE_API_URL}}/animes/",
+      "method": "GET",
+      "sortNum": 2500,
+      "created": "2024-07-26T05:30:42.381Z",
+      "modified": "2024-08-12T06:02:09.444Z",
+      "headers": []
+    },
+    {
+      "_id": "da1e95b3-3cb9-41f1-a4d9-56b37515515f",
+      "colId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+      "containerId": "",
+      "name": "Get An Anime",
+      "url": "{{BASE_API_URL}}/animes/11",
+      "method": "GET",
+      "sortNum": 5000,
+      "created": "2024-07-26T07:10:02.868Z",
+      "modified": "2024-08-08T00:54:46.672Z",
+      "headers": []
+    },
+    {
+      "_id": "212fede1-4cc3-4792-b16e-aae22377b724",
+      "colId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+      "containerId": "",
+      "name": "Create Anime",
+      "url": "{{BASE_API_URL}}/animes/",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2024-07-27T04:00:28.966Z",
+      "modified": "2024-08-13T04:19:37.277Z",
+      "headers": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [
+          {
+            "name": "name",
+            "value": "Kami no Tou: Ouji no Kikan"
+          },
+          {
+            "name": "description",
+            "value": "Ja Wangnan can’t seem to pass the 20th floor. Even after failing time and time again, he refuses to give up. On his journey, he meets a mysterious and powerful character named Viole. Wangnan invites Viole to join his team of Regulars. Their journey continues with new challenges at every turn."
+          },
+          {
+            "name": "genre",
+            "value": "Action"
+          },
+          {
+            "name": "rating",
+            "value": "7.12"
+          },
+          {
+            "name": "total_episode",
+            "value": "12"
+          }
+        ],
+        "files": [
+          {
+            "name": "image",
+            "value": "/Users/adrian/Downloads/tog.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "_id": "fc27bf2e-58cf-43ec-bea5-bf38285412d2",
+      "colId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+      "containerId": "",
+      "name": "Update Anime",
+      "url": "{{BASE_API_URL}}/animes/15",
+      "method": "PUT",
+      "sortNum": 40000,
+      "created": "2024-07-27T04:25:22.770Z",
+      "modified": "2024-08-10T00:36:53.829Z",
+      "headers": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [
+          {
+            "name": "name",
+            "value": "hehe"
+          },
+          {
+            "name": "description",
+            "value": "jenwnfjwenf"
+          },
+          {
+            "name": "genre",
+            "value": "action"
+          },
+          {
+            "name": "rating",
+            "value": "3.2"
+          },
+          {
+            "name": "total_episode",
+            "value": "12"
+          }
+        ],
+        "files": [
+          {
+            "name": "image",
+            "value": "/Users/adrian/Downloads/nasi_goreng.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "_id": "05b94425-627e-472d-aa57-ff2896da4dc3",
+      "colId": "c43b2978-35dd-4836-959c-187c1fa8dd9b",
+      "containerId": "",
+      "name": "Delete Anime",
+      "url": "{{BASE_API_URL}}/animes/12",
+      "method": "DELETE",
+      "sortNum": 50000,
+      "created": "2024-07-27T04:47:19.845Z",
+      "modified": "2024-08-08T07:22:50.484Z",
+      "headers": []
+    }
+  ],
+  "ref": "VbHyab4krAEI0jO7bTqE5bT8Lgy2B1cgYWaaIw6aIEy-6cJdT0OZn1P22_KsoUQhjTtPBAkrJ8_KGbbE4aBhVA"
+}
