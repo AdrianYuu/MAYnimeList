@@ -125,6 +125,7 @@ class _AnimePageState extends State<AnimePage> {
                         child: Image.network(
                           (ApiService.baseUrl + anime.imageUrl!),
                           fit: BoxFit.cover,
+                          width: double.infinity,
                         ),
                       ),
                     ),
@@ -134,9 +135,15 @@ class _AnimePageState extends State<AnimePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            (anime.name! + " - " + anime.genre!),
+                            (anime.name!),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 24),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            (anime.genre!),
+                            style: TextStyle(fontSize: 18),
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 8.0),

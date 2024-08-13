@@ -36,6 +36,11 @@ const updateReview = async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
 
+    if (data.review.trim() == "") {
+      res.status(400).json({ message: "Review can't be empty." });
+      return;
+    }
+
     const review = await reviewService.updateReview(id, data);
 
     res

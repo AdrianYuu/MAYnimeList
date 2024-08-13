@@ -267,7 +267,6 @@ class _AnimeDetailPageState extends State<AnimeDetailPage> {
                     children: [
                       SizedBox(
                         width: double.infinity,
-                        height: 200,
                         child: Image.network(
                           ApiService.baseUrl + (anime.imageUrl ?? ""),
                           fit: BoxFit.cover,
@@ -275,9 +274,15 @@ class _AnimeDetailPageState extends State<AnimeDetailPage> {
                       ),
                       const SizedBox(height: 16.0),
                       Text(
-                        anime.name! + " - " + anime.genre!,
+                        (anime.name!),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        (anime.genre!),
+                        style: TextStyle(fontSize: 18),
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 8.0),
@@ -340,7 +345,10 @@ class _AnimeDetailPageState extends State<AnimeDetailPage> {
                               username!,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            subtitle: Text(review.review!),
+                            subtitle: Text(
+                              review.review!,
+                              textAlign: TextAlign.justify,
+                            ),
                             trailing: isUserReview
                                 ? PopupMenuButton<String>(
                                     onSelected: (String value) {

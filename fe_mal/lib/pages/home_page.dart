@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 36),
                 CarouselSlider(
                   options: CarouselOptions(
-                    height: 180,
+                    height: 200,
                     autoPlay: true,
                     enlargeCenterPage: true,
                     aspectRatio: 16 / 9,
